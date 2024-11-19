@@ -19,34 +19,23 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.button1.setOnClickListener {
-            remplaceFragment(Fragment_1(),
-                R.id.fragmentContainerView8, R.id.fragmentContainerView)
+            remplaceFragment(binding.fragmentContainerView.id,Fragment_2())
+            remplaceFragment(binding.fragmentContainerView8.id,Fragment_1())
             Toast.makeText(this@MainActivity, "Fragment 1 is changed", Toast.LENGTH_SHORT).show()
         }
         binding.button2.setOnClickListener {
-            remplaceFragment(Fragment_2(),
-                R.id.fragmentContainerView, R.id.fragmentContainerView8)
+            remplaceFragment(binding.fragmentContainerView.id,Fragment_1())
+            remplaceFragment(binding.fragmentContainerView8.id,Fragment_2())
             Toast.makeText(this@MainActivity, "Fragment 2 is changed", Toast.LENGTH_SHORT).show()
 
         }
     }
-    private fun remplaceFragment(fragment: Fragment,containerId: Int,otherContainerId:Int) {
+
+    private fun remplaceFragment(containerViewId : Int,fragment: Fragment) {
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(containerId, fragment)
-
-        val otherFragment = fragmentManager.findFragmentById(otherContainerId)
-        if (otherFragment !=null){
-            fragmentTransaction.remove(otherFragment)
-        }
+        fragmentTransaction.replace(containerViewId, fragment)
         fragmentTransaction.commit()
     }
-
-    /*private fun remplaceFragment(fragment: Fragment) {
-        val fragmentManager = supportFragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(binding.fragmentContainerView.id, fragment)
-        fragmentTransaction.commit()
-    }*/
 }
 
